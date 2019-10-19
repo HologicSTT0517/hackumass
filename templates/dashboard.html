@@ -143,15 +143,15 @@
               <table id="macros">
               <tr>
                 <td>Protein:</td>
-                <td><input type="text" name="protein" class="filter-input" placeholder="0"></td>
+                <td><input type="number" name="protein" id="protein" class="filter-input" placeholder="0"></td>
               </tr>
               <tr>
                 <td>Fat:</td>
-                <td><input type="text" name="protein" class="filter-input" placeholder="0"></td>
+                <td><input type="number" name="fat" id="fat" class="filter-input" placeholder="0"></td>
               </tr>
               <tr>
                 <td>Carbs:</td>
-                <td><input type="text" name="protein" class="filter-input" placeholder="0"></td>
+                <td><input type="number" name="carbs" id="carbs" class="filter-input" placeholder="0"></td>
               </tr>
               </table>
               <div id="diet-restrictions" class="filter-group">
@@ -187,19 +187,19 @@
                       <input type="checkbox" name="shellfish" value="shellfish"/>
                       <label for="shellfish">Shellfish</label>
                     </span>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick="getMeals()">Submit</button>
               </div>
           </div>
       </div>
       <div class="row" id="suggestion-container">
           <div class="col-lg-4">
               <div class="meal-suggestion">
-                <h2 class="text-center">Chicken</h2>
+                <h2 class="text-center" id="prd-1-group"></h2>
                 <div class="meal-suggestion-content">
                   <table class="table">
                   <thead>
                     <tr class="cellBg">
                       <th scope="col">Food</th>
-                      <th scope="col">Serving Size</th>
                       <th scope="col">Protein</th>
                       <th scope="col">Fat</th>
                       <th scope="col">Carbs</th>
@@ -207,32 +207,10 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">Chicken</th>
-                      <td>3oz</td>
-                      <td>25g</td>
-                      <td>6g</td>
-                      <td>0g</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Broccoli</th>
-                      <td>1/2 cup</td>
-                      <td>4g</td>
-                      <td>0g</td>
-                      <td>1g</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Brown Rice</th>
-                      <td>1 cup</td>
-                      <td>8g</td>
-                      <td>0g</td>
-                      <td>12g</td>
-                    </tr>
-                    <tr class="cellBg">
-                      <th scope="row">Total</th>
-                      <td>-</td>
-                      <td>37g</td>
-                      <td>6g</td>
-                      <td>13g</td>
+                      <th scope="row" id="prd-1-name"></th>
+                      <td id="prd-1-p"></td>
+                      <td id="prd-1-f"></td>
+                      <td id="prd-1-c"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -242,13 +220,12 @@
           </div>
           <div class="col-lg-4">
               <div class="meal-suggestion">
-                <h2 class="text-center">Turkey</h2>
+                <h2 class="text-center" id="prd-2-group"></h2>
                 <div class="meal-suggestion-content">
                   <table class="table">
                   <thead>
                     <tr class="cellBg">
                       <th scope="col">Food</th>
-                      <th scope="col">Serving Size</th>
                       <th scope="col">Protein</th>
                       <th scope="col">Fat</th>
                       <th scope="col">Carbs</th>
@@ -256,32 +233,10 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">Turkey</th>
-                      <td>3oz</td>
-                      <td>25g</td>
-                      <td>6g</td>
-                      <td>0g</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Broccoli</th>
-                      <td>1/2 cup</td>
-                      <td>4g</td>
-                      <td>0g</td>
-                      <td>1g</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Brown Rice</th>
-                      <td>1 cup</td>
-                      <td>8g</td>
-                      <td>0g</td>
-                      <td>12g</td>
-                    </tr>
-                    <tr class="cellBg">
-                      <th scope="row">Total</th>
-                      <td>-</td>
-                      <td>37g</td>
-                      <td>6g</td>
-                      <td>13g</td>
+                      <th scope="row" id="prd-2-name"></th>
+                      <td id="prd-2-p"></td>
+                      <td id="prd-2-f"></td>
+                      <td id="prd-2-c"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -291,13 +246,12 @@
           </div>
           <div class="col-lg-4">
               <div class="meal-suggestion">
-                <h2 class="text-center">Tofu</h2>
+                <h2 class="text-center" id="prd-3-group"></h2>
                 <div class="meal-suggestion-content">
                   <table class="table">
                   <thead>
                     <tr class="cellBg">
                       <th scope="col">Food</th>
-                      <th scope="col">Serving Size</th>
                       <th scope="col">Protein</th>
                       <th scope="col">Fat</th>
                       <th scope="col">Carbs</th>
@@ -305,32 +259,10 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">Tofu</th>
-                      <td>3oz</td>
-                      <td>25g</td>
-                      <td>6g</td>
-                      <td>0g</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Broccoli</th>
-                      <td>1/2 cup</td>
-                      <td>4g</td>
-                      <td>0g</td>
-                      <td>1g</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Brown Rice</th>
-                      <td>1 cup</td>
-                      <td>8g</td>
-                      <td>0g</td>
-                      <td>12g</td>
-                    </tr>
-                    <tr class="cellBg">
-                      <th scope="row">Total</th>
-                      <td>-</td>
-                      <td>37g</td>
-                      <td>6g</td>
-                      <td>13g</td>
+                      <th scope="row" id="prd-3-name"></th>
+                      <td id="prd-3-p">25g</td>
+                      <td id="prd-3-f">6g</td>
+                      <td id="prd-3-c">0g</td>
                     </tr>
                   </tbody>
                 </table>
@@ -347,10 +279,80 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
-    $.post( "/getMeals", { fat: 10, protein: 12, carbs: 2 })
-      .done(function( data ) {
-      alert( "Data Loaded: " + data );
-    });
+      function getMeals() {
+        var f = document.getElementById("fat").value;
+        var p = document.getElementById("protein").value;
+        var c = document.getElementById("carbs").value;
+        //console.log(f)
+        if (f=="" || p=="" || c=="") {
+          alert("Please enter a value for Fat, Protein, and Carbs.")
+        } else {
+          $.post( "/getMeals", { fat: f, protein: p, carbs: c })
+            .done(function( data ) {
+            var res = JSON.parse(data);
+            var name ="";
+            var count = 0;
+            for(var i=0;i<res.length;i++)   {
+
+                console.log(res)
+                var p = parseInt(res[i][3]);
+                var f = parseInt(res[i][4]);
+                var c = parseInt(res[i][5]);
+                var group = res[i][1];
+              //console.log(res[i]);
+              var nameTemp = res[i][2];
+              nameTemp = nameTemp.split(",");
+              for(var x=0;x<nameTemp.length;x++) {
+                if (x<=2) {
+                  name += nameTemp[x] +",";
+                }
+
+              }
+              name = name.slice(0,-1)
+
+
+              console.log(group);
+              console.log(name);
+              console.log(p);
+              console.log(f);
+              console.log(c);
+              console.log("i: " + i)
+              if(count==0) {
+                  // Product 1
+                  console.log("In 1")
+                  document.getElementById("prd-1-group").innerHTML = group;
+                  document.getElementById("prd-1-name").innerHTML = name;
+                  document.getElementById("prd-1-p").innerHTML = p;
+                  document.getElementById("prd-1-f").innerHTML = f;
+                  document.getElementById("prd-1-c").innerHTML = c;
+                }
+
+                if(count== 1) {
+                  // Product 2
+                  console.log("In 2")
+                  document.getElementById("prd-2-group").innerHTML = group;
+                  document.getElementById("prd-2-name").innerHTML = name;
+                  document.getElementById("prd-2-p").innerHTML = p;
+                  document.getElementById("prd-2-f").innerHTML = f;
+                  document.getElementById("prd-2-c").innerHTML = c;
+                }
+
+                if(count==2){
+                  // Product 3
+                  document.getElementById("prd-3-group").innerHTML = group;
+                  document.getElementById("prd-3-name").innerHTML = name;
+                  document.getElementById("prd-3-p").innerHTML = p;
+                  document.getElementById("prd-3-f").innerHTML = f;
+                  document.getElementById("prd-3-c").innerHTML = c;
+                }
+                count++
+
+                console.log("test")
+              }
+            })
+          }
+        }
+
     </script>
   </body>
 </html>
