@@ -9,7 +9,7 @@ prange = 10
 frange = 10
 crange = 10
 
-def db_query(q):   
+def db_query(q):
     c = mysql.connector.connect(
       host="localhost",
       database="hackathon",
@@ -44,13 +44,14 @@ def match1Nutri(ch,value):
     raise Exception('Precondition not satisfied')
 
   for i in range(len(res)-1,-1,-1):
-      if abs(float(res[i][col])-value) > limits: 
+      if abs(float(res[i][col])-value) > limits:
         res.pop(i)
 
   return set(res)
 
 
 def match(carb,prot,fat,first=3):
+  print( db_query("SELECT * FROM nutrition"))
   carbnear = match1Nutri('c',carb)
   protnear = match1Nutri('p',prot)
   fatnear = match1Nutri('f',fat)
@@ -61,8 +62,8 @@ def match(carb,prot,fat,first=3):
     mrec = potentData[i] + error
     potentData[i]= mrec
   return sorted(potentData,key = lambda x: x[len(x)-1])[:first]
-    
-print(match(12,10,10))        
+
+print(match(12,10,10))
 
 @app.route("/")
 def home():
@@ -79,5 +80,9 @@ def signUp():
 @app.route("/dashboard")
 def dashboard():
     return render_template('dashboard.html')
+
+app.route('/getMeals', methods=["GET","POST"])
+def login_page():
+    return "test"
 
 app.run(host='0.0.0.0', port=5000)
