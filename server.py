@@ -1,6 +1,8 @@
 import os
+import json
 from flask import Flask
 from flask import render_template
+from flask import request
 import mysql.connector
 
 app = Flask(__name__)
@@ -81,8 +83,11 @@ def signUp():
 def dashboard():
     return render_template('dashboard.html')
 
-app.route('/getMeals', methods=["GET","POST"])
-def login_page():
-    return "test"
+@app.route("/getMeals", methods=['POST'])
+def getMeals():
+    carbs = int(request.form['carbs'])
+    protein = int(request.form['protein'])
+    fat = int(request.form['fat'])
+    return json.dumps(match(carbs,protein,fat,first=3))
 
-app.run(host='0.0.0.0', port=5000, debug=True)
+app.run(host='0.0.0.0', port=5000)
