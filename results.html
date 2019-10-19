@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Meal Suggestions</title>
+    <style>
+      body {
+        background-color: #eaeaea;
+      }
+
+      #suggestion-container {
+        margin-top: 20px;
+        width: 85%;
+        float: right;
+      }
+
+      #filters-container {
+        width: 15%;
+        height:100vh;
+        background-color: #FFF;
+        float: left;
+        border-right: solid black thin;
+      }
+
+      #filters-container h1 {
+        background-color: #212529;
+        color: #FFF;
+      }
+
+      .filter {
+        display: block;
+      }
+
+      .filter-group {
+        margin-top: 20px;
+        margin-left: 10px;
+      }
+
+    .filter-input {
+      width: 35px;
+    }
+
+      #filters-content td {
+        width: 65%;
+
+      }
+
+      #macros {
+        margin-left: 10px;
+        margin-top: 20px;
+      }
+      .table {
+        text-align: center;
+      }
+
+      .meal-suggestion {
+        min-height: 200px;
+        border: solid black thin;
+        width:90%;
+        margin: 20px auto 0px auto;
+        background-color: #FFF;
+      }
+
+      .meal-suggestion h2 {
+        font-size: 3rem;
+        color: #FFF;
+        padding-bottom: 10px;
+        border-bottom: solid black 3px;
+        background-color: #005db9;
+      }
+
+      .meal-suggestion-content {
+        padding: 10px;
+        margin-top: 20px;
+
+      }
+
+      .cellBg {
+        background-color: #212529;
+        color: #FFF;
+      }
+
+      .btn-select {
+        display: block;
+        margin: 0 auto;
+        font-size: 2rem;
+        margin-top: 50px;
+        margin-bottom: 20px;
+      }
+
+      .navbar {
+        background-color: #005db9!important;
+
+      }
+      .navbar a {
+        color: #FFF !important;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <!--<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>-->
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+  </nav>
+      <div id="filters-container">
+        <h1 class="text-center">Filters</h1>
+          <div id="filters-content">
+              <table id="macros">
+              <tr>
+                <td>Protein:</td>
+                <td><input type="text" name="protein" class="filter-input" placeholder="0"></td>
+              </tr>
+              <tr>
+                <td>Fat:</td>
+                <td><input type="text" name="protein" class="filter-input" placeholder="0"></td>
+              </tr>
+              <tr>
+                <td>Carbs:</td>
+                <td><input type="text" name="protein" class="filter-input" placeholder="0"></td>
+              </tr>
+              </table>
+              <div id="diet-restrictions" class="filter-group">
+                    <h5>Dietary Restrictions</h5>
+                    <span class="filter">
+                      <input type="checkbox" name="veg" value="veg"/>
+                      <label for="veg">Vegetarian</label>
+                    </span>
+
+                    <span class="filter">
+                      <input type="checkbox" name="vegan" value="vegan"/>
+                      <label for="vegan">Vegan</label>
+                    </span>
+
+                    <span class="filter">
+                      <input type="checkbox" name="lactose" value="lactose"/>
+                      <label for="lactose">Lactose Intollerant</label>
+                    </span>
+              </div>
+              <div id="diet-allergies" class="filter-group">
+                    <h5>Exclude Allergies</h5>
+                    <span class="filter">
+                      <input type="checkbox" name="treenuts" value="treenuts"/>
+                      <label for="treenuts">Tree Nuts</label>
+                    </span>
+
+                    <span class="filter">
+                      <input type="checkbox" name="peanuts" value="peanuts"/>
+                      <label for="peanuts">Peanuts</label>
+                    </span>
+
+                    <span class="filter">
+                      <input type="checkbox" name="shellfish" value="shellfish"/>
+                      <label for="shellfish">Shellfish</label>
+                    </span>
+              </div>
+          </div>
+      </div>
+      <div class="row" id="suggestion-container">
+          <div class="col-lg-4">
+              <div class="meal-suggestion">
+                <h2 class="text-center">Chicken</h2>
+                <div class="meal-suggestion-content">
+                  <table class="table">
+                  <thead>
+                    <tr class="cellBg">
+                      <th scope="col">Food</th>
+                      <th scope="col">Serving Size</th>
+                      <th scope="col">Protein</th>
+                      <th scope="col">Fat</th>
+                      <th scope="col">Carbs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Chicken</th>
+                      <td>3oz</td>
+                      <td>25g</td>
+                      <td>6g</td>
+                      <td>0g</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Broccoli</th>
+                      <td>1/2 cup</td>
+                      <td>4g</td>
+                      <td>0g</td>
+                      <td>1g</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Brown Rice</th>
+                      <td>1 cup</td>
+                      <td>8g</td>
+                      <td>0g</td>
+                      <td>12g</td>
+                    </tr>
+                    <tr class="cellBg">
+                      <th scope="row">Total</th>
+                      <td>-</td>
+                      <td>37g</td>
+                      <td>6g</td>
+                      <td>13g</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+                <!--<button type="button" class="btn btn-primary btn-lg btn-select">Select</button>-->
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="meal-suggestion">
+                <h2 class="text-center">Turkey</h2>
+                <div class="meal-suggestion-content">
+                  <table class="table">
+                  <thead>
+                    <tr class="cellBg">
+                      <th scope="col">Food</th>
+                      <th scope="col">Serving Size</th>
+                      <th scope="col">Protein</th>
+                      <th scope="col">Fat</th>
+                      <th scope="col">Carbs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Turkey</th>
+                      <td>3oz</td>
+                      <td>25g</td>
+                      <td>6g</td>
+                      <td>0g</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Broccoli</th>
+                      <td>1/2 cup</td>
+                      <td>4g</td>
+                      <td>0g</td>
+                      <td>1g</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Brown Rice</th>
+                      <td>1 cup</td>
+                      <td>8g</td>
+                      <td>0g</td>
+                      <td>12g</td>
+                    </tr>
+                    <tr class="cellBg">
+                      <th scope="row">Total</th>
+                      <td>-</td>
+                      <td>37g</td>
+                      <td>6g</td>
+                      <td>13g</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+                <!--<button type="button" class="btn btn-primary btn-lg btn-select">Select</button>-->
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class="meal-suggestion">
+                <h2 class="text-center">Tofu</h2>
+                <div class="meal-suggestion-content">
+                  <table class="table">
+                  <thead>
+                    <tr class="cellBg">
+                      <th scope="col">Food</th>
+                      <th scope="col">Serving Size</th>
+                      <th scope="col">Protein</th>
+                      <th scope="col">Fat</th>
+                      <th scope="col">Carbs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Tofu</th>
+                      <td>3oz</td>
+                      <td>25g</td>
+                      <td>6g</td>
+                      <td>0g</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Broccoli</th>
+                      <td>1/2 cup</td>
+                      <td>4g</td>
+                      <td>0g</td>
+                      <td>1g</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Brown Rice</th>
+                      <td>1 cup</td>
+                      <td>8g</td>
+                      <td>0g</td>
+                      <td>12g</td>
+                    </tr>
+                    <tr class="cellBg">
+                      <th scope="row">Total</th>
+                      <td>-</td>
+                      <td>37g</td>
+                      <td>6g</td>
+                      <td>13g</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+                <!--<button type="button" class="btn btn-primary btn-lg btn-select">Select</button>-->
+              </div>
+          </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
