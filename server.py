@@ -11,7 +11,7 @@ prange = 10
 frange = 10
 crange = 10
 
-def db_query(q):
+def db_query(q):   
     c = mysql.connector.connect(
       host="localhost",
       database="hackathon",
@@ -26,46 +26,72 @@ def db_query(q):
     return cursor.fetchall()
 
 
-def match1Nutri(ch,value):
+def match1Nutri(ch,value,perfer=None):
   col=int()
   res = list()
   limits = int()
+  res = db_query("SELECT * FROM nutrition WHERE NAME like " + "\"%"+ perfer +"%\"" if perfer is not None else "SELECT * FROM nutrition" )
   if ch =='c' or ch == 'C':
     col=5
-    res = db_query("SELECT * FROM nutrition")
     limits = crange
   elif ch == 'p' or ch == 'P':
     col=3
-    res = db_query("SELECT * FROM nutrition")
     limits = prange
   elif ch == 'f' or ch == 'F':
     col=4
-    res = db_query("SELECT * FROM nutrition")
     limits = frange
   else:
     raise Exception('Precondition not satisfied')
 
   for i in range(len(res)-1,-1,-1):
-      if abs(float(res[i][col])-value) > limits:
+      if abs(float(res[i][col])-value) > limits: 
         res.pop(i)
 
   return set(res)
 
+def removeAllergies(potentData,allergies):
+  for i in range(len(potentData)-1,-1,-1):
+    for allergy in allergies:
+      if potentData[i][2].find(allergy) != -1 :
+        potentData.pop(i)
 
-def match(carb,prot,fat,first=3):
-  print( db_query("SELECT * FROM nutrition"))
-  carbnear = match1Nutri('c',carb)
-  protnear = match1Nutri('p',prot)
-  fatnear = match1Nutri('f',fat)
-  potentData = carbnear.union(protnear,fatnear)
+def match(carb,prot,fat,first=3,perferedcat=[],allergies=None):
+  if perferedcat == []:
+    carbnear = match1Nutri('c',carb)
+    protnear = match1Nutri('p',prot)
+    fatnear = match1Nutri('f',fat)
+    potentData = carbnear.union(protnear,fatnear)
+  else:
+    potentData = set()
+    for x in perferedcat:
+      carbnear = match1Nutri('c',carb,x)
+      protnear = match1Nutri('p',prot,x)
+      fatnear = match1Nutri('f',fat,x)
+      potentData =potentData.union(carbnear,protnear,fatnear)
+    
   potentData = list(potentData)
   for i in range(len(potentData)):
     error = (abs(float(potentData[i][3])-prot) + abs(float(potentData[i][4])-fat) + abs(float(potentData[i][5])-carb)) ,
     mrec = potentData[i] + error
     potentData[i]= mrec
-  return sorted(potentData,key = lambda x: x[len(x)-1])[:first]
+  potentData = sorted(potentData,key = lambda x: float(x[len(x)-1]))
+  if allergies is not None:
+    removeAllergies(potentData,allergies)
+  return potentData[:first]
 
-print(match(12,10,10))
+def userPrefer(username):
+  res = db_query("SELECT * FROM USERPREFERENCE WHERE username = \""+username+"\"")
+  tagCount=OrderedDict()
+  for rec in res:
+    tags = rec[1].split(',')
+    for tag in tags:
+      if tag not in tagCount.keys():
+        tagCount[tag] = 1
+      else:
+        tagCount[tag] += 1
+  tagCount = OrderedDict(sorted(tagCount.items(),key = lambda x: x[1] ))
+  return list(tagCount.keys())
+
 
 @app.route("/")
 def home():
@@ -88,6 +114,12 @@ def getMeals():
     carbs = int(request.form['carbs'])
     protein = int(request.form['protein'])
     fat = int(request.form['fat'])
-    return json.dumps(match(carbs,protein,fat,first=3))
+    res = set(match(12,10,10,first=2,allergies=['salmon']))
+    for x in match(12,10,10,first=3,perferedcat=userPrefer("Evan")):
+      res.add(x)
+      if len(res) == 3:
+        break
+    res = list(res)
+    return json.dumps(res)
 
 app.run(host='0.0.0.0', port=5000)
