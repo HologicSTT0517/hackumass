@@ -85,4 +85,4 @@ app.route('/getMeals', methods=["GET","POST"])
 def login_page():
     return "test"
 
-app.run(host='0.0.0.0', port=5000)
+app.run(host='0.0.0.0', port=5000, debug=True)
