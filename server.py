@@ -95,9 +95,12 @@ def userPrefer(username):
 
 
 
+<<<<<<< HEAD
 @app.route("/")
 def home():
     return render_template("dashboard.html")
+=======
+>>>>>>> f9de123c08c7b4ccaceb7c917b08a5f369d24369
 
 @app.route("/login")
 def login():
@@ -116,7 +119,11 @@ def getMeals():
     carbs = int(round(float(request.form['carbs'])))
     protein = int(round(float(request.form['protein'])))
     fat = int(round(float(request.form['fat'])))
+<<<<<<< HEAD
     allergies = request.form['allergies'].split(' ') if request.form['allergies'] !='' else []
+=======
+    allergies = request.form['allergies'].split(';') if request.form['allergies'] !='' else []
+>>>>>>> f9de123c08c7b4ccaceb7c917b08a5f369d24369
     res = set(match(carbs,protein,fat,first=2,allergies=allergies))
     for x in match(carbs,protein,fat,first=3,allergies=allergies,perferedcat=[]):
       res.add(x)

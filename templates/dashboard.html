@@ -284,8 +284,11 @@
           var treeNuts = document.getElementById("treenuts");
           var peanuts = document.getElementById("peanuts");
           var soy = document.getElementById("soy");
+<<<<<<< HEAD
           var veg = document.getElementById("veg");
 
+=======
+>>>>>>> f9de123c08c7b4ccaceb7c917b08a5f369d24369
           var allergies = "";
 
           if(treeNuts.checked) {
@@ -304,6 +307,7 @@
 
           if (soy.checked) {
             if(allergies.length > 0) {
+<<<<<<< HEAD
               allergies += " soy";
             } else {
               allergies += " soy";
@@ -315,6 +319,11 @@
               allergies += "Soups Sauces Gravies Snacks Beef Fats Oils Finfish Shellfish Lamb Veal Game Pork Poultry Sausages Luncheon Meats"
             } else {
                 allergies += "Soups Sauces Gravies Snacks Beef Fats Oils Finfish Shellfish Lamb Veal Game Pork Poultry Sausages Luncheon Meats"
+=======
+              allergies += ";soy";
+            } else {
+              allergies += "soy";
+>>>>>>> f9de123c08c7b4ccaceb7c917b08a5f369d24369
             }
           }
           console.log(allergies);
