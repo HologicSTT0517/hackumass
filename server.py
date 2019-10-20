@@ -53,7 +53,7 @@ def match1Nutri(ch,value,perfer=None):
 def removeAllergies(potentData,allergies):
   for i in range(len(potentData)-1,-1,-1):
     for allergy in allergies:
-      if potentData[i][2].find(allergy) != -1 and potentData[i][1].find(allergy) != -1:
+      if potentData[i][2].find(allergy) != -1  or potentData[i][1].find(allergy) != -1:
         potentData.pop(i)
 
 def match(carb,prot,fat,first=3,perferedcat=[],allergies=[]):
