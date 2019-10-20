@@ -53,7 +53,7 @@ def match1Nutri(ch,value,perfer=None):
 def removeAllergies(potentData,allergies):
   for i in range(len(potentData)-1,-1,-1):
     for allergy in allergies:
-      if potentData[i][2].find(allergy) != -1 :
+      if potentData[i][2].find(allergy) != -1 and potentData[i][1].find(allergy) != -1:
         potentData.pop(i)
 
 def match(carb,prot,fat,first=3,perferedcat=[],allergies=[]):
@@ -94,9 +94,10 @@ def userPrefer(username):
   return list(tagCount.keys())
 
 
+
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("dashboard.html")
 
 @app.route("/login")
 def login():
@@ -112,12 +113,12 @@ def dashboard():
 
 @app.route("/getMeals", methods=['POST'])
 def getMeals():
-    carbs = int(request.form['carbs'])
-    protein = int(request.form['protein'])
-    fat = int(request.form['fat'])
-    allergies = request.form['allergies'].split(';') if request.form['allergies'] !='' else []
+    carbs = int(round(float(request.form['carbs'])))
+    protein = int(round(float(request.form['protein'])))
+    fat = int(round(float(request.form['fat'])))
+    allergies = request.form['allergies'].split(' ') if request.form['allergies'] !='' else []
     res = set(match(carbs,protein,fat,first=2,allergies=allergies))
-    for x in match(carbs,protein,fat,first=3,allergies=allergies,perferedcat=userPrefer("Evan")):
+    for x in match(carbs,protein,fat,first=3,allergies=allergies,perferedcat=[]):
       res.add(x)
       if len(res) == 3:
         break

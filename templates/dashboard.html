@@ -68,7 +68,7 @@
       }
 
       .meal-suggestion h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
         color: #FFF;
         padding-bottom: 10px;
         border-bottom: solid black 3px;
@@ -143,21 +143,21 @@
               <table id="macros">
               <tr>
                 <td>Protein:</td>
-                <td><input type="number" name="protein" id="protein" class="filter-input" placeholder="0"></td>
+                <td><input type="number" name="protein" id="protein" min="0" class="filter-input"></td>
               </tr>
               <tr>
                 <td>Fat:</td>
-                <td><input type="number" name="fat" id="fat" class="filter-input" placeholder="0"></td>
+                <td><input type="number" name="fat" id="fat" min="0" class="filter-input"></td>
               </tr>
               <tr>
                 <td>Carbs:</td>
-                <td><input type="number" name="carbs" id="carbs" class="filter-input" placeholder="0"></td>
+                <td><input type="number" name="carbs" min="0" id="carbs" class="filter-input" ></td>
               </tr>
               </table>
               <div id="diet-restrictions" class="filter-group">
                     <h5>Dietary Restrictions</h5>
                     <span class="filter">
-                      <input type="checkbox" name="veg" value="veg"/>
+                      <input type="checkbox" name="veg" id="veg" value="veg"/>
                       <label for="veg">Vegetarian</label>
                     </span>
 
@@ -184,8 +184,8 @@
                     </span>
 
                     <span class="filter">
-                      <input type="checkbox" id="shellfish" name="shellfish" value="shellfish"/>
-                      <label for="shellfish">Shellfish</label>
+                      <input type="checkbox" id="soy" name="soy" value="soy"/>
+                      <label for="soy">Soy</label>
                     </span>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick="getMeals()">Submit</button>
               </div>
@@ -283,28 +283,38 @@
       function checkAllergies() {
           var treeNuts = document.getElementById("treenuts");
           var peanuts = document.getElementById("peanuts");
-          var shellfish = document.getElementById("shellfish");
+          var soy = document.getElementById("soy");
+          var veg = document.getElementById("veg");
+
           var allergies = "";
 
           if(treeNuts.checked) {
             console.log("Treenuts checked.");
-            allergies += "Treenuts";
+            allergies += " Treenuts";
           }
 
           if(peanuts.checked) {
             console.log("Peanuts checked.");
             if (allergies.length > 0) {
-              allergies += ";Peanuts"
+              allergies += " Peanuts"
             } else {
-              allergies += "Peanuts";
+              allergies += " Peanuts";
             }
           }
 
-          if (shellfish.checked) {
+          if (soy.checked) {
             if(allergies.length > 0) {
-              allergies += ";Shellfish";
+              allergies += " soy";
             } else {
-              allergies += "Shellfish";
+              allergies += " soy";
+            }
+          }
+
+          if(veg.checked)  {
+            if (allergies.length > 0) {
+              allergies += "Soups Sauces Gravies Snacks Beef Fats Oils Finfish Shellfish Lamb Veal Game Pork Poultry Sausages Luncheon Meats"
+            } else {
+                allergies += "Soups Sauces Gravies Snacks Beef Fats Oils Finfish Shellfish Lamb Veal Game Pork Poultry Sausages Luncheon Meats"
             }
           }
           console.log(allergies);
