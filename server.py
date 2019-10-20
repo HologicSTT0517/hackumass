@@ -1,5 +1,6 @@
 import os
 import json
+from collections import OrderedDict
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -11,7 +12,7 @@ prange = 10
 frange = 10
 crange = 10
 
-def db_query(q):   
+def db_query(q):
     c = mysql.connector.connect(
       host="localhost",
       database="hackathon",
@@ -44,7 +45,7 @@ def match1Nutri(ch,value,perfer=None):
     raise Exception('Precondition not satisfied')
 
   for i in range(len(res)-1,-1,-1):
-      if abs(float(res[i][col])-value) > limits: 
+      if abs(float(res[i][col])-value) > limits:
         res.pop(i)
 
   return set(res)
@@ -55,7 +56,7 @@ def removeAllergies(potentData,allergies):
       if potentData[i][2].find(allergy) != -1 :
         potentData.pop(i)
 
-def match(carb,prot,fat,first=3,perferedcat=[],allergies=None):
+def match(carb,prot,fat,first=3,perferedcat=[],allergies=[]):
   if perferedcat == []:
     carbnear = match1Nutri('c',carb)
     protnear = match1Nutri('p',prot)
@@ -68,14 +69,14 @@ def match(carb,prot,fat,first=3,perferedcat=[],allergies=None):
       protnear = match1Nutri('p',prot,x)
       fatnear = match1Nutri('f',fat,x)
       potentData =potentData.union(carbnear,protnear,fatnear)
-    
+
   potentData = list(potentData)
   for i in range(len(potentData)):
     error = (abs(float(potentData[i][3])-prot) + abs(float(potentData[i][4])-fat) + abs(float(potentData[i][5])-carb)) ,
     mrec = potentData[i] + error
     potentData[i]= mrec
   potentData = sorted(potentData,key = lambda x: float(x[len(x)-1]))
-  if allergies is not None:
+  if allergies != []:
     removeAllergies(potentData,allergies)
   return potentData[:first]
 
@@ -114,8 +115,9 @@ def getMeals():
     carbs = int(request.form['carbs'])
     protein = int(request.form['protein'])
     fat = int(request.form['fat'])
-    res = set(match(12,10,10,first=2,allergies=['salmon']))
-    for x in match(12,10,10,first=3,perferedcat=userPrefer("Evan")):
+    allergies = request.form['allergies'].split(';') if request.form['allergies'] !='' else []
+    res = set(match(carbs,protein,fat,first=2,allergies=allergies))
+    for x in match(carbs,protein,fat,first=3,allergies=allergies,perferedcat=userPrefer("Evan")):
       res.add(x)
       if len(res) == 3:
         break

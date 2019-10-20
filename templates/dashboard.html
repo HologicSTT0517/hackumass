@@ -174,17 +174,17 @@
               <div id="diet-allergies" class="filter-group">
                     <h5>Exclude Allergies</h5>
                     <span class="filter">
-                      <input type="checkbox" name="treenuts" value="treenuts"/>
+                      <input type="checkbox" id="treenuts" name="treenuts" value="treenuts"/>
                       <label for="treenuts">Tree Nuts</label>
                     </span>
 
                     <span class="filter">
-                      <input type="checkbox" name="peanuts" value="peanuts"/>
+                      <input type="checkbox" id="peanuts" name="peanuts" value="peanuts"/>
                       <label for="peanuts">Peanuts</label>
                     </span>
 
                     <span class="filter">
-                      <input type="checkbox" name="shellfish" value="shellfish"/>
+                      <input type="checkbox" id="shellfish" name="shellfish" value="shellfish"/>
                       <label for="shellfish">Shellfish</label>
                     </span>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick="getMeals()">Submit</button>
@@ -279,21 +279,55 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
+
+      function checkAllergies() {
+          var treeNuts = document.getElementById("treenuts");
+          var peanuts = document.getElementById("peanuts");
+          var shellfish = document.getElementById("shellfish");
+          var allergies = "";
+
+          if(treeNuts.checked) {
+            console.log("Treenuts checked.");
+            allergies += "Treenuts";
+          }
+
+          if(peanuts.checked) {
+            console.log("Peanuts checked.");
+            if (allergies.length > 0) {
+              allergies += ";Peanuts"
+            } else {
+              allergies += "Peanuts";
+            }
+          }
+
+          if (shellfish.checked) {
+            if(allergies.length > 0) {
+              allergies += ";Shellfish";
+            } else {
+              allergies += "Shellfish";
+            }
+          }
+          console.log(allergies);
+          return allergies
+      }
+
       function getMeals() {
         var f = document.getElementById("fat").value;
         var p = document.getElementById("protein").value;
         var c = document.getElementById("carbs").value;
+        var a = checkAllergies();
+
         //console.log(f)
         if (f=="" || p=="" || c=="") {
           alert("Please enter a value for Fat, Protein, and Carbs.")
         } else {
-          $.post( "/getMeals", { fat: f, protein: p, carbs: c })
+          $.post( "/getMeals", { fat: f, protein: p, carbs: c, allergies: a })
             .done(function( data ) {
             var res = JSON.parse(data);
-            var name ="";
+
             var count = 0;
             for(var i=0;i<res.length;i++)   {
-
+                var name ="";
                 console.log(res)
                 var p = parseInt(res[i][3]);
                 var f = parseInt(res[i][4]);
