@@ -1,0 +1,117 @@
+body {
+	background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#container {
+	max-width: 1400px;
+  padding: .5em;
+}
+
+.outer-form {
+	color: black;
+}
+
+#form-header {
+	font-family: "Open Sans", sans-serif;
+}
+
+#form-header p {
+	font-size: 22px;
+}
+
+#title {
+	font-weight: 600;
+}
+
+#survey-form {
+	font-size: 20px;
+  float:left;
+  width: 67%;
+}
+
+.form-groupA{
+	padding: 1em;
+}
+
+.form-groupB{
+	padding: 1em;
+}
+
+.form-groupC{
+	padding: 1em;
+}
+
+.form{
+  float:left;
+  width: 50%;
+}
+
+label {
+    position:relative;
+    cursor:pointer;
+}
+.form-groupA label [type="checkbox"] {
+    display:none;
+}
+
+.form-groupA [type="checkbox"] + span {
+    display:inline-block;
+    padding:1em;
+    border: 1px solid black;
+    margin: 0.07em;
+		border-radius: 1em;
+
+}
+.form-groupA :checked + span {
+    background:  #0F0;
+    display:inline-block;
+		border: 1px solid #0F0;
+		color: black;
+		border-radius: 1em;
+}
+
+.form-groupB label [type="checkbox"] {
+    display:none;
+}
+
+.form-groupB [type="checkbox"] + span {
+    display:inline-block;
+    padding:1em;
+    border: 1px solid black;
+    margin: 0.07em;
+		border-radius: 1em;
+
+}
+
+
+.form-groupB :checked + span{
+    background:  #0F0;
+    display:inline-block;
+		border: 1px solid #0F0;
+		color: black;
+		border-radius: 1em;
+}
+
+
+
+.form-groupC button {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  width: 100%;
+  padding: 15px;
+  font-size: 14px;
+	background-color: transparent;
+	border: 1px solid black;
+	margin-top: 1em;
+}
+.form-groupC button:hover,.form-groupC button:active,.form-groupC button:focus {
+	background-color: #76b852;
+	border: 1px solid #76b852;
+}
