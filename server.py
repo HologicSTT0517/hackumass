@@ -5,12 +5,29 @@ from flask import Flask
 from flask import render_template
 from flask import request
 import mysql.connector
+import sys
+from hashlib import md5
 
 app = Flask(__name__)
 
 prange = 10
 frange = 10
 crange = 10
+
+def db_insert(q):
+    c = mysql.connector.connect(
+      host="localhost",
+      database="hackathon",
+      user="root",
+      passwd=""
+    )
+
+    cursor = c.cursor(buffered=True)
+
+    query = (q)
+    cursor.execute(query)
+    c.commit()
+    return cursor
 
 def db_query(q):
     c = mysql.connector.connect(
@@ -53,7 +70,7 @@ def match1Nutri(ch,value,perfer=None):
 def removeAllergies(potentData,allergies):
   for i in range(len(potentData)-1,-1,-1):
     for allergy in allergies:
-      if potentData[i][2].find(allergy) != -1  or potentData[i][1].find(allergy) != -1:
+      if potentData[i][2].find(allergy) != -1 :
         potentData.pop(i)
 
 def match(carb,prot,fat,first=3,perferedcat=[],allergies=[]):
@@ -94,13 +111,9 @@ def userPrefer(username):
   return list(tagCount.keys())
 
 
-
-<<<<<<< HEAD
 @app.route("/")
 def home():
-    return render_template("dashboard.html")
-=======
->>>>>>> f9de123c08c7b4ccaceb7c917b08a5f369d24369
+    return render_template('index.html')
 
 @app.route("/login")
 def login():
@@ -116,20 +129,45 @@ def dashboard():
 
 @app.route("/getMeals", methods=['POST'])
 def getMeals():
-    carbs = int(round(float(request.form['carbs'])))
-    protein = int(round(float(request.form['protein'])))
-    fat = int(round(float(request.form['fat'])))
-<<<<<<< HEAD
-    allergies = request.form['allergies'].split(' ') if request.form['allergies'] !='' else []
-=======
+    carbs = int(request.form['carbs'])
+    protein = int(request.form['protein'])
+    fat = int(request.form['fat'])
     allergies = request.form['allergies'].split(';') if request.form['allergies'] !='' else []
->>>>>>> f9de123c08c7b4ccaceb7c917b08a5f369d24369
-    res = set(match(carbs,protein,fat,first=2,allergies=allergies))
-    for x in match(carbs,protein,fat,first=3,allergies=allergies,perferedcat=[]):
+    res = set(match(carbs,protein,fat,first=5,allergies=allergies))
+    for x in match(carbs,protein,fat,first=10,allergies=allergies,perferedcat=userPrefer("Evan")):
       res.add(x)
-      if len(res) == 3:
+      if len(res) == 10:
         break
     res = list(res)
     return json.dumps(res)
+
+@app.route("/makepro", methods=['POST'])
+def add():
+    username = request.form["Username"]
+    password = md5(request.form["password"].encode()).hexdigest()
+    email = request.form["email"]
+    db_insert("INSERT INTO `PYTHONLOGIN`(`USERNAME`,`PASSWORD`,`EMAIL`) VALUES('%s','%s','%s')" %(username, password, email))
+    return render_template('login.html')
+
+
+@app.route("/tollbooth", methods=['POST'])
+def userLogin():
+    username = request.form["username"]
+    password = md5(request.form["password"].encode()).hexdigest()
+    res = db_query("SELECT * FROM `PYTHONLOGIN` WHERE `username` = \""+username+"\" and `password` = \""+password+"\"")
+    if len(res) == 1:
+        return render_template('dashboard.html')
+    else:
+        return render_template('preferences.html', msg = "ERROR: Incorrect username of password")
+
+@app.route("/makeProfile.html")
+def connectToMakeAccount():
+    return render_template('makeProfile.html')
+
+@app.route("/login.html")
+def connectToLogint():
+    return render_template('login.html')
+
+
 
 app.run(host='0.0.0.0', port=5000)

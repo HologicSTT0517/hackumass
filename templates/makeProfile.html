@@ -12,7 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
 <!-- <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 <!-- Custom Theme files -->
-<link rel = "stylesheet" href = "createProfile.css">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/createProfile.css') }}">
 <!-- //Custom Theme files -->
 <!-- web font -->
 <!-- <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet"> -->
@@ -24,11 +24,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<h1>Sign Up for Nutrition</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
-				<form action="#" method="post">
+				<form method="post" action="/makepro">
 					<input class="text" type="text" name="Username" placeholder="Username" required="">
 					<input class="text email" type="email" name="email" placeholder="Email" required="">
 					<input class="text" type="password" name="password" placeholder="Password" required="">
-					<input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">
+					<input class="text w3lpass" type="password" name="cpassword" placeholder="Confirm Password" required="">
 					<div class="wthree-text">
 						<label class="anim">
 							<input type="checkbox" class="checkbox" required="">
@@ -38,7 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 					<input type="submit" value="SIGNUP">
 				</form>
-				<p>Do have an Account? <a href="login.html"> Login Now!</a></p>
+				<a href = "/login.html"> <p class="message"> Have an Account? Login Now!</p></a>
 			</div>
 		</div>
 	<!-- //main -->

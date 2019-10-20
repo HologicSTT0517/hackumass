@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 <head>
 <title> Nutrition </title>
 <link rel = "stylesheet" href = "mainlogin.css">
@@ -21,6 +21,27 @@
       <button>login</button>
       <p class="message">Not registered? <a href="makeProfile.html">Create an account</a></p>
     </form>
+  </div>
+</div>
+</body>
+</html> -->
+<html>
+<head>
+<title> Nutrition </title>
+<link rel = "stylesheet" href = "mainlogin.css">
+<script src="checkboxes.js"></script>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainlogin.css') }}">
+</head>
+
+<body>
+  <div class="login-page">
+  <div class="form">
+    <form class="login-form" action = "/tollbooth" method = "post">
+      <input type="text" placeholder="username" name = "username"/>
+      <input type="password" placeholder="password" name = "password"/>
+      <input type="submit" value="submit" name = "submit">
+    </form>
+    <a href = "/makeProfile.html"> <p class="message"> Not registered? Create an Account</a></p>
   </div>
 </div>
 </body>
